@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":206:{a:2:{s:7:"defects";a:2:{s:26:"Test\TokenTest::testCreate";i:4;s:29:"Test\TokenTest::testRtmCreate";i:4;}s:5:"times";a:2:{s:26:"Test\TokenTest::testCreate";d:0.016;s:29:"Test\TokenTest::testRtmCreate";d:0;}}}
