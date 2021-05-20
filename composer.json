@@ -1,40 +1,41 @@
 {
-    "name": "wujie/agora",
-    "type": "library",
-    "license": "MIT",
-    "keywords": [
-        "agora",
-        "php"
-    ],
-    "description": "agora",
-    "authors": [
-        {
-            "name": "武杰",
-            "email": "1224805548@qq.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Wu\\Agora\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Test\\": "test"
-        }
-    },
-    "require": {
-        "php": ">=7.1",
-        "guzzlehttp/guzzle": "^6.3",
-        "nesbot/carbon": "^2.48",
-        "ext-json": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": ">=7.0",
-        "friendsofphp/php-cs-fixer": "^3.0",
-        "vlucas/phpdotenv": "^5.3"
-    },
-    "scripts": {
-        "cs-fix": "php-cs-fixer fix $1"
+  "name": "wujie/agora",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "agora",
+    "php",
+    "agora api"
+  ],
+  "description": "agora token 和 接口请求",
+  "authors": [
+    {
+      "name": "武杰",
+      "email": "1224805548@qq.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Wu\\Agora\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "test"
+    }
+  },
+  "require": {
+    "php": ">=7.1",
+    "guzzlehttp/guzzle": "^6.3",
+    "nesbot/carbon": "^2.48",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=7.0",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "vlucas/phpdotenv": "^5.3"
+  },
+  "scripts": {
+    "cs-fix": "php-cs-fixer fix $1"
+  }
 }
