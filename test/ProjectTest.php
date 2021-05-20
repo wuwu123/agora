@@ -25,7 +25,7 @@ class ProjectTest extends BaseTest
     public function testStatus()
     {
         $model = $this->getModel();
-        $response = $model->status('U70iHhc846i', rand(0, 1));
+        $response = $model->status('U70iHhc846i', 1);
         $this->assertSame($response->errorCode, Response::SUCCESS);
     }
 

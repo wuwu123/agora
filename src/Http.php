@@ -63,6 +63,22 @@ class Http
         return $this->request("post", $url, $data);
     }
 
+    public function requestPut($url, $data = []): Response
+    {
+        if ($data) {
+            $data['json'] = $data;
+        }
+        return $this->request("put", $url, $data);
+    }
+
+    public function requestDelete($url, $data = []): Response
+    {
+        if ($data) {
+            $data['json'] = $data;
+        }
+        return $this->request("delete", $url, $data);
+    }
+
     protected function request($method, $url, $data = []): Response
     {
         $response = new Response();

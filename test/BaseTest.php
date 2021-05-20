@@ -4,8 +4,10 @@ namespace Test;
 
 use Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;
+use Wu\Agora\Channel\Channel;
 use Wu\Agora\Config;
 use Wu\Agora\Project\Project;
+use Wu\Agora\Rule\Rule;
 
 class BaseTest extends TestCase
 {
@@ -21,6 +23,12 @@ class BaseTest extends TestCase
         $class = static::class;
         if ($class == ProjectTest::class) {
             return new Project($this->getConfig());
+        }
+        if ($class == RuleTest::class) {
+            return new Rule($this->getConfig());
+        }
+        if ($class == ChannelTest::class) {
+            return new Channel($this->getConfig());
         }
         return null;
     }
