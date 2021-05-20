@@ -13,7 +13,16 @@ class Config
 
     protected $version = "006";
 
+    /**
+     * @var Carbon
+     */
     public $date;
+
+    protected $timeOut = 2;
+
+    protected $handler;
+
+    protected $retry = 1;
 
     public function __construct(string $appID = '', string $appCertificate = '')
     {
@@ -52,19 +61,35 @@ class Config
 
     /**
      * @param string $appID
+     * @return Config
      */
-    public function setAppID(string $appID): void
+    public function setAppID(string $appID): Config
     {
         $this->appID = $appID;
+        return $this;
     }
 
     /**
      * @param string $appCertificate
+     * @return Config
      */
-    public function setAppCertificate(string $appCertificate): void
+    public function setAppCertificate(string $appCertificate): Config
     {
         $this->appCertificate = $appCertificate;
+        return $this;
     }
+
+    /**
+     * @param string $version
+     * @return Config
+     */
+    public function setVersion(string $version): Config
+    {
+        $this->version = $version;
+        return $this;
+    }
+
+
 
     /**
      * @return string
@@ -74,22 +99,60 @@ class Config
         return $this->version;
     }
 
-    /**
-     * @return Carbon
-     */
-    public function getCarbon(): Carbon
-    {
-        return Carbon::createFromTimestamp(time(), 'UTC');
-    }
-
     public function getVersionLen(): int
     {
         return strlen($this->version);
     }
 
-
     public function getAppIdLen(): int
     {
         return strlen($this->appID);
+    }
+
+    public function getHandler()
+    {
+        return $this->handler;
+    }
+
+    public function setHandler(?callable $handler)
+    {
+        $this->handler = $handler;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeOut(): int
+    {
+        return $this->timeOut;
+    }
+
+    /**
+     * @param int $timeOut
+     * @return Config
+     */
+    public function setTimeOut(int $timeOut): Config
+    {
+        $this->timeOut = $timeOut;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRetry(): int
+    {
+        return $this->retry;
+    }
+
+    /**
+     * @param int $retry
+     * @return Config
+     */
+    public function setRetry(int $retry): Config
+    {
+        $this->retry = $retry;
+        return $this;
     }
 }

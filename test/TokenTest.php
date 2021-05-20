@@ -6,8 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Wu\Agora\Config;
 use Wu\Agora\Token\AccessToken;
 use Wu\Agora\Token\TokenBuilder;
+use Wu\Agora\Tool;
 
-class TokenTest extends TestCase
+class TokenTest extends BaseTest
 {
     /**
      * @return Config
@@ -19,11 +20,10 @@ class TokenTest extends TestCase
 
     public function testCreate()
     {
-        $config = $this->getConfig();
         $channelName = "hdkhfdkasjhfakhf";
         $uidOrAccount = "1234567";
         $role = AccessToken::RoleAttendee;
-        $time = $config->getCarbon()->timestamp + 100;
+        $time = Tool::time()->timestamp + 100;
         $tokenModel = new TokenBuilder($this->getConfig());
         $res = $tokenModel->buildToken($channelName, $uidOrAccount, $role, $time);
         $this->assertNotEmpty($res);
@@ -34,9 +34,8 @@ class TokenTest extends TestCase
 
     public function testRtmCreate()
     {
-        $config = $this->getConfig();
         $uidOrAccount = "1234567";
-        $time = $config->getCarbon()->timestamp + 100;
+        $time = Tool::time()->timestamp + 100;
         $tokenModel = new TokenBuilder($this->getConfig());
         $res = $tokenModel->rtmTokenBuilder($uidOrAccount, $time);
         $this->assertNotEmpty($res);

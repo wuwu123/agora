@@ -3,6 +3,7 @@
 namespace Wu\Agora\Token;
 
 use Carbon\Carbon;
+use Wu\Agora\Tool;
 
 class Message
 {
@@ -22,7 +23,7 @@ class Message
     public function packContent()
     {
         $this->salt = mt_rand(1, 99999999);
-        $this->ts = Carbon::createFromTimestamp(time(), 'UTC')->timestamp;
+        $this->ts = Tool::time()->timestamp;
         $buffer = unpack("C*", pack("V", $this->salt));
         $buffer = array_merge($buffer, unpack("C*", pack("V", $this->ts)));
         $buffer = array_merge($buffer, unpack("C*", pack("v", sizeof($this->privileges))));
