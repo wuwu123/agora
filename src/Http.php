@@ -23,9 +23,9 @@ class Http
      */
     public function authorization()
     {
-        $appId = $this->config->getAppID();
-        $customerSecret = $this->config->getAppCertificate();
-        $credentials = $appId . ":" . $customerSecret;
+        $customerKey = $this->config->getCustomerKey();
+        $customerSecret = $this->config->getCustomerSecret();
+        $credentials = $customerKey . ":" . $customerSecret;
         return "Basic " . base64_encode($credentials);
     }
 

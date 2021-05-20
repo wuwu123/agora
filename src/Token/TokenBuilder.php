@@ -3,6 +3,7 @@
 namespace Wu\Agora\Token;
 
 use Wu\Agora\Config;
+use Wu\Agora\Exception\AgoraException;
 
 class TokenBuilder
 {
@@ -51,7 +52,7 @@ class TokenBuilder
     /**
      * @param $token
      * @return Message
-     * @throws Exception\AgoraException
+     * @throws AgoraException
      */
     public function messageByToken($token): Message
     {

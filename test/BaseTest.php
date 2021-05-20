@@ -15,7 +15,7 @@ class BaseTest extends TestCase
     {
         $dotenv = Dotenv::createImmutable(__DIR__ . "/..");
         $dotenv->safeLoad();
-        return new Config($_ENV['APP_ID'], $_ENV['APP_KEY']);
+        return new Config($_ENV['APP_ID'], $_ENV['APP_CERTIFICATE'], $_ENV['CUSTOMER_KEY'], $_ENV['CUSTOMER_SECRET']);
     }
 
     public function getModel()

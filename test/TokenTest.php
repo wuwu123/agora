@@ -10,14 +10,6 @@ use Wu\Agora\Tool;
 
 class TokenTest extends BaseTest
 {
-    /**
-     * @return Config
-     */
-    public function getConfig()
-    {
-        return new Config('970CA35de60c44645bbae8a215061b33', '5CFd2fd1755d40ecb72977518be15d3b');
-    }
-
     public function testCreate()
     {
         $channelName = "hdkhfdkasjhfakhf";

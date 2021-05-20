@@ -7,27 +7,57 @@ use Wu\Agora\Exception\AgoraException;
 
 class Config
 {
-    protected $appID;
+    /**
+     * @var string app区分
+     */
+    private $appSource = 'default';
 
-    protected $appCertificate;
+    /**
+     * @var AppConfig[] app 证书
+     */
+    private $appKeyArray = [];
 
+    /**
+     * @var string token版本
+     */
     protected $version = "006";
 
     /**
-     * @var Carbon
+     * @var string api管理key
      */
-    public $date;
+    protected $customerKey;
 
+    /**
+     * @var string api管理密钥
+     */
+    protected $customerSecret;
+
+    /**
+     * @var int api请求超时时间
+     */
     protected $timeOut = 2;
 
-    protected $handler;
-
+    /**
+     * @var int api请求重试次数
+     */
     protected $retry = 1;
 
-    public function __construct(string $appID = '', string $appCertificate = '')
+    /**
+     * @var null guzzle请求handler
+     */
+    protected $handler;
+
+
+    public function __construct(string $appID = '', string $appCertificate = '', string $customerKey = '', string $customerSecret = '')
     {
-        $this->appID = $appID;
-        $this->appCertificate = $appCertificate;
+        $appConfig = new AppConfig();
+        if ($appID || $appCertificate) {
+            $appConfig->setAppID($appID);
+            $appConfig->setAppCertificate($appCertificate);
+            $this->appKeyArray[$this->appSource] = $appConfig;
+        }
+        $this->customerKey = $customerKey;
+        $this->customerSecret = $customerSecret;
     }
 
     /**
@@ -35,10 +65,10 @@ class Config
      */
     public function checkConfig()
     {
-        if (! $this->appID) {
+        if (! $this->getAppID()) {
             throw new AgoraException("appID check failed, should be a non-empty string");
         }
-        if (! $this->appCertificate) {
+        if (! $this->getAppCertificate()) {
             throw new AgoraException("appCertificate check failed, should be a non-empty string");
         }
     }
@@ -48,7 +78,7 @@ class Config
      */
     public function getAppID(): string
     {
-        return $this->appID;
+        return $this->appKeyArray[$this->appSource]->getAppID();
     }
 
     /**
@@ -56,27 +86,15 @@ class Config
      */
     public function getAppCertificate(): string
     {
-        return $this->appCertificate;
+        return $this->appKeyArray[$this->appSource]->getAppCertificate();
     }
 
     /**
-     * @param string $appID
-     * @return Config
+     * @return string
      */
-    public function setAppID(string $appID): Config
+    public function getVersion(): string
     {
-        $this->appID = $appID;
-        return $this;
-    }
-
-    /**
-     * @param string $appCertificate
-     * @return Config
-     */
-    public function setAppCertificate(string $appCertificate): Config
-    {
-        $this->appCertificate = $appCertificate;
-        return $this;
+        return $this->version;
     }
 
     /**
@@ -89,34 +107,39 @@ class Config
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getCustomerKey(): string
+    {
+        return $this->customerKey;
+    }
 
+    /**
+     * @param string $customerKey
+     * @return Config
+     */
+    public function setCustomerKey(string $customerKey): Config
+    {
+        $this->customerKey = $customerKey;
+        return $this;
+    }
 
     /**
      * @return string
      */
-    public function getVersion(): string
+    public function getCustomerSecret(): string
     {
-        return $this->version;
+        return $this->customerSecret;
     }
 
-    public function getVersionLen(): int
+    /**
+     * @param string $customerSecret
+     * @return Config
+     */
+    public function setCustomerSecret(string $customerSecret): Config
     {
-        return strlen($this->version);
-    }
-
-    public function getAppIdLen(): int
-    {
-        return strlen($this->appID);
-    }
-
-    public function getHandler()
-    {
-        return $this->handler;
-    }
-
-    public function setHandler(?callable $handler)
-    {
-        $this->handler = $handler;
+        $this->customerSecret = $customerSecret;
         return $this;
     }
 
@@ -154,5 +177,67 @@ class Config
     {
         $this->retry = $retry;
         return $this;
+    }
+
+
+    public function getHandler()
+    {
+        return $this->handler;
+    }
+
+    /**
+     * @param $handler
+     * @return Config
+     */
+    public function setHandler($handler): Config
+    {
+        $this->handler = $handler;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppSource(): string
+    {
+        return $this->appSource;
+    }
+
+    /**
+     * @param string $appSource
+     * @return Config
+     */
+    public function setAppSource(string $appSource): Config
+    {
+        $this->appSource = $appSource;
+        return $this;
+    }
+
+    /**
+     * @return AppConfig[]
+     */
+    public function getAppKeyArray(): array
+    {
+        return $this->appKeyArray;
+    }
+
+    /**
+     * @param AppConfig[] $appKeyArray
+     * @return Config
+     */
+    public function setAppKeyArray(array $appKeyArray): Config
+    {
+        $this->appKeyArray = $appKeyArray;
+        return $this;
+    }
+
+    public function getVersionLen()
+    {
+        return strlen($this->version);
+    }
+
+    public function getAppIdLen()
+    {
+        return strlen($this->getAppID());
     }
 }

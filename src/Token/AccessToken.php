@@ -76,10 +76,17 @@ class AccessToken
         return $this;
     }
 
+    /**
+     * @param Config $config
+     * @param null $message
+     * @return AccessToken
+     * @throws AgoraException
+     */
     public static function make(Config $config, $message = null)
     {
         $accessToken = new AccessToken();
         $accessToken->config = $config;
+        $config->checkConfig();
         if (! ($message instanceof Message)) {
             $message = new Message();
         }
