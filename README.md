@@ -1,5 +1,10 @@
 ## 声网token生成和接口管理
 
+### 使用
+```
+composer require wujie/agora
+```
+
 ### 配置文件
 
 ```php
