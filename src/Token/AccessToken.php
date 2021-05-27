@@ -157,7 +157,7 @@ class AccessToken
      */
     public function build()
     {
-        $msg = $this->message->packContent();
+        $msg = $this->message->packContent($this->config->getTokenExpired());
         $val = array_merge(unpack("C*", $this->config->getAppID()), unpack("C*", $this->channelName), unpack("C*", $this->uid), $msg);
 
         $sig = hash_hmac('sha256', implode(array_map("chr", $val)), $this->config->getAppCertificate(), true);

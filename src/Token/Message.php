@@ -20,10 +20,10 @@ class Message
         $this->privileges = array();
     }
 
-    public function packContent()
+    public function packContent($tokenExpired = 0)
     {
         $this->salt = mt_rand(1, 99999999);
-        $this->ts = Tool::time()->timestamp;
+        $this->ts = Tool::time()->timestamp + $tokenExpired;
         $buffer = unpack("C*", pack("V", $this->salt));
         $buffer = array_merge($buffer, unpack("C*", pack("V", $this->ts)));
         $buffer = array_merge($buffer, unpack("C*", pack("v", sizeof($this->privileges))));

@@ -47,6 +47,11 @@ class Config
      */
     protected $handler;
 
+    /**
+     * @var int token 有效期
+     */
+    public $tokenExpired = 3600;
+
 
     public function __construct(string $appID = '', string $appCertificate = '', string $customerKey = '', string $customerSecret = '')
     {
@@ -239,5 +244,23 @@ class Config
     public function getAppIdLen()
     {
         return strlen($this->getAppID());
+    }
+
+    /**
+     * @return int
+     */
+    public function getTokenExpired(): int
+    {
+        return $this->tokenExpired;
+    }
+
+    /**
+     * @param int $tokenExpired
+     * @return Config
+     */
+    public function setTokenExpired(int $tokenExpired): Config
+    {
+        $this->tokenExpired = $tokenExpired;
+        return $this;
     }
 }
